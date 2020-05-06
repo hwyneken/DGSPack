@@ -19,3 +19,7 @@ Imports:
   ncvreg,
   SIS,
   selectiveInference
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

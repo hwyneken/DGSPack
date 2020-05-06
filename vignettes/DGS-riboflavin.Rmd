@@ -1,0 +1,44 @@
+---
+title: "DGS-riboflavin"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{DGS-riboflavin}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(DGSPack)
+print("hello world")
+load("../data/riboflavin.RData")
+#ls()
+#print(getwd())
+print(dim(ribo))
+head(colnames(ribo))
+class(ribo)
+head(ribo[,1])
+head(ribo[,1000])
+ribo2 = matrix(as.numeric(ribo),nrow=dim(ribo)[1])
+print(dim(ribo2))
+colnames(ribo2) = colnames(ribo)
+head(colnames(ribo2))
+riboDF = as.data.frame(ribo2)
+summary(riboDF$q_RIBFLV)
+```
+
+```{r,figure=TRUE}
+hist(riboDF$q_RIBFLV)
+```
+
+```{r}
+y = riboDF$q_RIBFLV
+x = as.matrix(riboDF[,-1])
+tryCEDGS = DGSPack::RunCEDGS_Normal(x,y)
+```

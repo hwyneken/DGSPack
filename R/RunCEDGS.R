@@ -1,3 +1,5 @@
+
+#' @export
 RunCEDGS_Normal = function(vsMethods = c("getESCVCoef_Normal",
                                          "getFSAICCoef_Normal",
                                          "getISISCoef_Normal",
