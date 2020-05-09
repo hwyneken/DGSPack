@@ -77,9 +77,9 @@ RunCEDGS_Normal = function(vsMethods = c("getESCVCoef_Normal",
       for (awayMethod in vsMethods) {
         awayMethodFunc = get(awayMethod)
 
-        awayMethodFit = awayMethodFunc(x,y)
+        tempAwayFit = awayMethodFunc(x,y)
 
-        awayActiveSet = awayMethodFit$activeSet
+        awayActiveSet = tempAwayFit$activeSet
 
 
         RepVec = c(RepVec,i)
