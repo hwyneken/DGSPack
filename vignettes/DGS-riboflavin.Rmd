@@ -40,5 +40,5 @@ hist(riboDF$q_RIBFLV)
 ```{r}
 y = riboDF$q_RIBFLV
 x = as.matrix(riboDF[,-1])
-tryCEDGS = DGSPack::RunCEDGS_Normal(x,y)
+tryCEDGS = DGSPack::RunCEDGS_Normal(x=x,y=y)
 ```

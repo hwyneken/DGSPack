@@ -75,6 +75,7 @@ RunCEDGS_Normal = function(vsMethods = c("getESCVCoef_Normal",
       # use the original X matrix
 
       for (awayMethod in vsMethods) {
+        print(sprintf("%s - %s",homeMethod,awayMethod))
         awayMethodFunc = get(awayMethod)
 
         tempAwayFit = awayMethodFunc(x,y)
