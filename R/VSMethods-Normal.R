@@ -624,20 +624,78 @@ getSCADCoef_Normal = function(xMat,yVec) {
 
 ####################################################################################
 
-getSOILCoef_Normal = function(xMat,yVec) {
+getSOILHighCoef_Normal = function(xMat,yVec) {
   #browser()
-  lassoCV = glmnet::cv.glmnet(x=xMat,y=yVec,
-                        family="gaussian",standardize=TRUE,intercept=TRUE)
+  lassoCV = cv.glmnet(x=xMat,y=yVec,
+                      family="gaussian",standardize=TRUE,intercept=TRUE)
   lassoCoef = as.numeric(coef(lassoCV))
 
   activeVars = which(lassoCoef[-1] != 0)
   numActive = length(activeVars)
   p = dim(xMat)[2]
   if (numActive > 0) {
-    soilRes = SOIL::SOIL(x=xMat,y=yVec,psi=1,family="gaussian")
+    soilRes = SOIL(x=xMat,y=yVec,psi=1,family="gaussian")
 
     #soilCutoff = sort(as.numeric(soilRes$importance),decreasing=TRUE)[numActive]
     soilCutoff = 0.5
+
+    whichVars = which(as.numeric(soilRes$importance) >= soilCutoff)
+    tempX = xMat[,whichVars]
+
+    tempGLM = try(lm(yVec ~ tempX))
+    if (class(tempGLM)[1] != "try-error") {
+      tempCI = try(confint(tempGLM))
+      if (class(tempCI)[1] != "try-error") {
+        tempCI = tempCI[-1,]
+        if (sum(lassoCoef[-1] != 0) == 1) {
+          tempCI = matrix(tempCI,nrow=1,ncol=2)
+        }
+      }
+      else {
+        tempCI = "confint Failed"
+      }
+
+      pVals = try(coef(summary(tempGLM))[-1,4])
+
+    }
+    else {
+      tempCI = "glm Failed"
+      pVals = "glm Failed"
+    }
+    finalCoef = rep(0,p)
+    finalCoef[whichVars] = lassoCoef[whichVars+1]
+    activeSet = whichVars
+  }
+  else {
+    finalCoef = lassoCoef
+    activeSet = NULL
+    tempCI = "none selected"
+    pVals = "none selected"
+  }
+
+  resList = list(coef = finalCoef,
+                 activeSet = activeSet,
+                 pvalues = pVals,
+                 tempCI = tempCI)
+  return(resList)
+}
+
+######################################################################################
+
+getSOILMedCoef_Normal = function(xMat,yVec) {
+  #browser()
+  lassoCV = cv.glmnet(x=xMat,y=yVec,
+                      family="gaussian",standardize=TRUE,intercept=TRUE)
+  lassoCoef = as.numeric(coef(lassoCV))
+
+  activeVars = which(lassoCoef[-1] != 0)
+  numActive = length(activeVars)
+  p = dim(xMat)[2]
+  if (numActive > 0) {
+    soilRes = SOIL(x=xMat,y=yVec,psi=1,family="gaussian")
+
+    #soilCutoff = sort(as.numeric(soilRes$importance),decreasing=TRUE)[numActive]
+    soilCutoff = 0.25
 
     whichVars = which(as.numeric(soilRes$importance) >= soilCutoff)
     tempX = xMat[,whichVars]
@@ -657,6 +715,71 @@ getSOILCoef_Normal = function(xMat,yVec) {
       }
 
       pVals = try(coef(summary(tempGLM))[-1,4])
+      #if (class(pVals)[1] != "try-error") {
+      #  names(pVals) = as.character(which(lassoCoef[-1] != 0))
+      #}
+      #else {
+      #  pVals = "summary Failed"
+      #}
+    }
+    else {
+      tempCI = "glm Failed"
+      pVals = "glm Failed"
+    }
+    finalCoef = rep(0,p)
+    finalCoef[whichVars] = lassoCoef[whichVars+1]
+    activeSet = whichVars
+  }
+  else {
+    finalCoef = lassoCoef
+    activeSet = NULL
+    tempCI = "none selected"
+    pVals = "none selected"
+  }
+
+  resList = list(coef = finalCoef,
+                 activeSet = activeSet,
+                 pvalues = pVals,
+                 tempCI = tempCI)
+  return(resList)
+}
+
+################################################################################3
+
+getSOILLowCoef_Normal = function(xMat,yVec) {
+  #browser()
+  lassoCV = cv.glmnet(x=xMat,y=yVec,
+                      family="gaussian",standardize=TRUE,intercept=TRUE)
+  lassoCoef = as.numeric(coef(lassoCV))
+
+  activeVars = which(lassoCoef[-1] != 0)
+  numActive = length(activeVars)
+  p = dim(xMat)[2]
+  if (numActive > 0) {
+    soilRes = SOIL(x=xMat,y=yVec,psi=1,family="gaussian")
+
+    #soilCutoff = sort(as.numeric(soilRes$importance),decreasing=TRUE)[numActive]
+    soilCutoff = 0.1
+
+    whichVars = which(as.numeric(soilRes$importance) >= soilCutoff)
+    tempX = xMat[,whichVars]
+
+    tempGLM = try(lm(yVec ~ tempX))
+    if (class(tempGLM)[1] != "try-error") {
+      tempCI = try(confint(tempGLM))
+      if (class(tempCI)[1] != "try-error") {
+        tempCI = tempCI[-1,]
+        if (sum(lassoCoef[-1] != 0) == 1) {
+          tempCI = matrix(tempCI,nrow=1,ncol=2)
+        }
+        #rownames(tempCI) <- as.character(whichVars)
+      }
+      else {
+        tempCI = "confint Failed"
+      }
+
+      pVals = try(coef(summary(tempGLM))[-1,4])
+
     }
     else {
       tempCI = "glm Failed"
