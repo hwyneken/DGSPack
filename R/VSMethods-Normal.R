@@ -263,7 +263,7 @@ getFSAICCoef_Normal <- function(xMat,yVec,sigmaError) {
     largeCorInds = which(corVec >= cor100th)
     xMat_Star = xMat[,largeCorInds]
     fsfit = selectiveInference::fs(xMat_Star,yVec)
-    out.seq = selectiveInference::fsInf(fsfit,alpha=0.05,sigma=sigmaError,
+    out.seq = selectiveInference::fsInf(fsfit,alpha=0.05,sigma=NULL,
                     type = "active",k=NULL)
 
     betaMat = fsfit$beta
