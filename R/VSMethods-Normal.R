@@ -500,7 +500,7 @@ getLassoInfCoef_Normal <- function(xMat,yVec,sigma=NULL,lambdaStrategy="Negahban
     }
     resList = list(coef = beta,
                    activeSet = activeSet,
-                   ciMat = tempCI,
+                   tempCI = tempCI,
                    pVals = pVals)
   }
   else {
