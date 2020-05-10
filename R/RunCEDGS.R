@@ -133,6 +133,7 @@ RunCEDGS_Normal = function(vsMethods = c("getESCVCoef_Normal",
 
             ### Partial Target Coverage
             tempX = x[,awayActiveSet]
+            browser()
             tempPartialTarget = as.numeric(solve(t(tempX) %*% tempX) %*% tempX %*% tempMeanFunc)
             numCovered = 0
             numCoveredActive = 0
