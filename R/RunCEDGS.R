@@ -287,7 +287,6 @@ RunCEDGS_Normal = function(vsMethods = c("getESCVCoef_Normal",
     }
   }
 
-  browser()
   resDF = data.frame(Rep = RepVec,
                      HomeMethod = HomeVec,
                      AwayMethod = AwayVec,
