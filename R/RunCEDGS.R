@@ -141,19 +141,19 @@ RunCEDGS_Normal = function(vsMethods = c("getESCVCoef_Normal",
             numTotalInactive = 0
             for (j in 1:numAwayActive) {
               tempVar = awayActiveSet[j]
-              numCovered = ifelse((tempCI[j,1] <= tempPartialTarget[tempVar]) & (tempCI[j,2] >= tempPartialTarget[tempVar]),
+              numCovered = ifelse((tempCI[j,1] <= tempPartialTarget[j]) & (tempCI[j,2] >= tempPartialTarget[j]),
                                   numCovered + 1,numCovered)
 
               numTotalActive = ifelse(tempBeta[tempVar] != 0,numTotalActive +1,
                                       numTotalActive)
               if (tempBeta[tempVar] != 0) {
-                numCoveredActive = ifelse((tempCI[j,1] <= tempPartialTarget[tempVar]) & (tempCI[j,2] >= tempPartialTarget[tempVar]),
+                numCoveredActive = ifelse((tempCI[j,1] <= tempPartialTarget[j]) & (tempCI[j,2] >= tempPartialTarget[j]),
                                           numCoveredActive +1,numCoveredActive)
               }
               numTotalInactive = ifelse(tempBeta[tempVar] == 0,numTotalInactive+1,
                                         numTotalInactive)
               if (tempBeta[tempVar] == 0) {
-                numCoveredInactive = ifelse((tempCI[j,1] <= tempPartialTarget[tempVar]) & (tempCI[j,2] >= tempPartialTarget[tempVar]),
+                numCoveredInactive = ifelse((tempCI[j,1] <= tempPartialTarget[j]) & (tempCI[j,2] >= tempPartialTarget[j]),
                                             numCoveredInactive + 1,numCoveredInactive)
               }
             }
@@ -235,19 +235,19 @@ RunCEDGS_Normal = function(vsMethods = c("getESCVCoef_Normal",
             numTotalInactive = 0
             for (j in 1:numAwayActive) {
               tempVar = awayActiveSet[j]
-              numCovered = ifelse((tempCI[j,1] <= tempPartialTarget[tempVar]) & (tempCI[j,2] >= tempPartialTarget[tempVar]),
+              numCovered = ifelse((tempCI[j,1] <= tempPartialTarget[j]) & (tempCI[j,2] >= tempPartialTarget[j]),
                                   numCovered + 1,numCovered)
 
               numTotalActive = ifelse(tempBeta[tempVar] != 0,numTotalActive +1,
                                       numTotalActive)
               if (tempBeta[tempVar] != 0) {
-                numCoveredActive = ifelse((tempCI[j,1] <= tempPartialTarget[tempVar]) & (tempCI[j,2] >= tempPartialTarget[tempVar]),
+                numCoveredActive = ifelse((tempCI[j,1] <= tempPartialTarget[j]) & (tempCI[j,2] >= tempPartialTarget[j]),
                                           numCoveredActive +1,numCoveredActive)
               }
               numTotalInactive = ifelse(tempBeta[tempVar] == 0,numTotalInactive+1,
                                         numTotalInactive)
               if (tempBeta[tempVar] == 0) {
-                numCoveredInactive = ifelse((tempCI[j,1] <= tempPartialTarget[tempVar]) & (tempCI[j,2] >= tempPartialTarget[tempVar]),
+                numCoveredInactive = ifelse((tempCI[j,1] <= tempPartialTarget[j]) & (tempCI[j,2] >= tempPartialTarget[j]),
                                             numCoveredInactive + 1,numCoveredInactive)
               }
             }
