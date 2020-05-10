@@ -217,7 +217,7 @@ getESCVCoef_Normal = function(xMat,yVec) {
                  sigmaError = sigmaError,
                  coef = escvCoef,
                  activeSet = which(escvCoef != 0),
-                 ciMat = tempCI,
+                 tempCI = tempCI,
                  pVals = pVals,
                  escvRes = escvRes)
   return(resList)
@@ -297,7 +297,7 @@ getFSAICCoef_Normal <- function(xMat,yVec,sigmaError) {
   resList = list(coef = finalCoef,
                  activeSet = out.seq$vars,
                  pvalues = out.seq$pv,
-                 ciMat = out.seq$ci,
+                 tempCI = out.seq$ci,
                  fsfit = fsfit)
   return(resList)
 
@@ -372,7 +372,7 @@ getISISCoef_Normal = function(xMat,yVec) {
                  activeSet = which(isisOfficialCoef != 0),
                  mu = muVec,
                  sigmaError = sigmaError,
-                 ciMat = tempCI,
+                 tempCI = tempCI,
                  pVals = pVals,
                  isisOfficialRes = isisOfficialRes)
   return(resList)
@@ -430,7 +430,7 @@ getLassoCoef_Normal = function(xMat,yVec) {
                  sigmaError = sigmaError,
                  coef = lassoCoef[-1],
                  activeSet = which(lassoCoef[-1] != 0),
-                 ciMat = tempCI,
+                 tempCI = tempCI,
                  pVals = pVals,
                  lassoCV = lassoCV)
   return(resList)
@@ -506,7 +506,7 @@ getLassoInfCoef_Normal <- function(xMat,yVec,sigma=NULL,lambdaStrategy="Negahban
   else {
     resList = list(coef = rep(0,p),
                    activeSet = NULL,
-                   ciMat = NULL,
+                   tempCI = NULL,
                    pVals = NULL)
   }
 
@@ -562,7 +562,7 @@ getMCPCoef_Normal = function(xMat,yVec) {
                  sigmaError = sigmaError,
                  activeSet = which(mcpCoef[-1] != 0),
                  coef = mcpCoef[-1],
-                 ciMat = tempCI,
+                 tempCI = tempCI,
                  pVals = pVals)
   return(resList)
 }
@@ -617,7 +617,7 @@ getSCADCoef_Normal = function(xMat,yVec) {
                  sigmaError = sigmaError,
                  activeSet = which(scadCoef[-1] != 0),
                  coef = scadCoef[-1],
-                 ciMat = tempCI,
+                 tempCI = tempCI,
                  pVals = pVals)
   return(resList)
 }
@@ -676,6 +676,6 @@ getSOILCoef_Normal = function(xMat,yVec) {
   resList = list(coef = finalCoef,
                  activeSet = activeSet,
                  pvalues = pVals,
-                 ciMat = tempCI)
+                 tempCI = tempCI)
   return(resList)
 }
