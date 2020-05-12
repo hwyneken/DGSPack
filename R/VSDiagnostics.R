@@ -1,3 +1,7 @@
+
+#' @export
+
+
 ### CITE papers for the VSD and F/G statistics
 
 ### Performance Assessment of High-Dimensional Variable Identification
